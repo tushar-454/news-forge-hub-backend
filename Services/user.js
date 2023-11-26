@@ -7,6 +7,10 @@ const findUserByProperty = (key, value) => {
   return User.findOne({ [key]: value });
 };
 
+const findUsersByProperty = (key, value) => {
+  return User.find({ [key]: value });
+};
+
 const findUsers = () => {
   return User.find();
 };
@@ -26,4 +30,5 @@ module.exports = {
   findUserByProperty,
   findUsers,
   createNewUser,
+  findUsersByProperty,
 };

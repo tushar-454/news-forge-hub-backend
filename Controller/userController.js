@@ -4,7 +4,12 @@ const getUsers = async (req, res, next) => {
   /**
    * TODO: filter, sort, pagination, select
    */
+  const { email } = req.query;
   try {
+    if (email) {
+      const user = await userServices.findUserByProperty('email', email);
+      return res.status(200).json(user);
+    }
     const users = await userServices.findUsers();
     res.status(200).json(users);
   } catch (error) {

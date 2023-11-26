@@ -140,6 +140,23 @@ const updatePublication = async (req, res, next) => {
   }
 };
 
+const deletePublication = async (req, res, next) => {
+  const id = req.params.id;
+  try {
+    const publication = await publicationServices.getPublicationByProperty(
+      '_id',
+      id
+    );
+    if (!publication) {
+      throw error('Publication not found', 404);
+    }
+    await publicationServices.deletePublication(id);
+    res.status(201).json({ message: 'Delete successfully' });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   getUsers,
   patchUser,
@@ -147,4 +164,5 @@ module.exports = {
   addPublication,
   getPublication,
   updatePublication,
+  deletePublication,
 };

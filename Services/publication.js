@@ -21,8 +21,13 @@ const getPublication = () => {
   return Publication.find();
 };
 
+const deletePublication = (id) => {
+  return Publication.deleteOne({ _id: id });
+};
+
 module.exports = {
   createAPublication,
   getPublicationByProperty,
   getPublication,
+  deletePublication,
 };

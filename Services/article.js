@@ -3,7 +3,7 @@ const Article = require('../Model/Articles');
 const createNewArtical = ({
   title,
   image,
-  publisher,
+  publication,
   tags,
   description,
   email,
@@ -11,12 +11,12 @@ const createNewArtical = ({
   const aritcle = new Article({
     title,
     image,
-    publisher,
+    publication,
     tags,
     description,
     email,
     isApprove: 'Pending',
-    isPremium: 'Pending',
+    isPremium: 'NONE',
   });
   return aritcle.save();
 };

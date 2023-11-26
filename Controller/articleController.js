@@ -2,12 +2,12 @@ const error = require('../Error/error');
 const articleService = require('../Services/article');
 
 const postArticle = async (req, res, next) => {
-  const { title, image, publisher, tags, description, email } = req.body;
+  const { title, image, publication, tags, description, email } = req.body;
   try {
     await articleService.createNewArtical({
       title,
       image,
-      publisher,
+      publication,
       tags,
       description,
       email,
@@ -44,7 +44,7 @@ const getArticleById = async (req, res, next) => {
 
 const putArticle = async (req, res, next) => {
   const id = req.params.id;
-  const { title, image, publisher, tags, description } = req.body;
+  const { title, image, publication, tags, description, isPremium } = req.body;
   try {
     const article = await articleService.findArticleByProperty('_id', id);
     if (!article) {
@@ -52,9 +52,10 @@ const putArticle = async (req, res, next) => {
     }
     article.title = title ?? article.title;
     article.image = image ?? article.image;
-    article.publisher = publisher ?? article.publisher;
+    article.publication = publication ?? article.publication;
     article.tags = tags ?? article.tags;
     article.description = description ?? article.description;
+    article.isPremium = isPremium === 'Pending' ? 'Pending' : article.isPremium;
     await article.save();
     res.status(200).json(article);
   } catch (error) {

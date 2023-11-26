@@ -5,8 +5,22 @@ const userSchema = new Schema({
     type: String,
     require: true,
   },
-  age: {
+  email: {
     type: Number,
+    require: true,
+  },
+  role: {
+    type: [String],
+    require: true,
+    default: ['USER'],
+  },
+  isPremium: {
+    type: Boolean,
+    require: true,
+    default: false,
+  },
+  premiumTill: {
+    type: String,
     require: true,
   },
 });

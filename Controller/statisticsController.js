@@ -11,14 +11,14 @@ const publicationStatistics = async (req, res, next) => {
       },
       {
         $group: {
-          _id: '$publisher',
+          _id: '$publication',
           articlesCount: { $sum: 1 },
         },
       },
       {
         $project: {
           _id: 0,
-          publisher: '$_id',
+          publication: '$_id',
           articlesCount: 1,
         },
       },

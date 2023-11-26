@@ -4,7 +4,7 @@ const articleService = require('../Services/article');
 const postArticle = async (req, res, next) => {
   const { title, image, publication, tags, description, email } = req.body;
   try {
-    await articleService.createNewArtical({
+    const aritcla = await articleService.createNewArtical({
       title,
       image,
       publication,
@@ -12,6 +12,7 @@ const postArticle = async (req, res, next) => {
       description,
       email,
     });
+    console.log(aritcla);
     res.status(201).json({ message: 'success' });
   } catch (error) {
     next(error);
@@ -56,6 +57,7 @@ const putArticle = async (req, res, next) => {
     article.tags = tags ?? article.tags;
     article.description = description ?? article.description;
     article.isPremium = isPremium === 'Pending' ? 'Pending' : article.isPremium;
+    article.viewCount = article.viewCount + 1;
     await article.save();
     res.status(200).json(article);
   } catch (error) {

@@ -9,7 +9,7 @@ const articleSchema = new Schema({
     type: String,
     require: true,
   },
-  publisher: {
+  publication: {
     type: String,
     require: true,
   },
@@ -34,6 +34,11 @@ const articleSchema = new Schema({
     type: String,
     require: true,
     default: 'Pending',
+  },
+  viewCount: {
+    type: Number,
+    require: true,
+    default: 0,
   },
 });
 

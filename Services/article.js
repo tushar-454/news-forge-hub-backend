@@ -17,6 +17,7 @@ const createNewArtical = ({
     email,
     isApprove: 'Pending',
     isPremium: 'NONE',
+    viewCount: 0,
   });
   return aritcle.save();
 };

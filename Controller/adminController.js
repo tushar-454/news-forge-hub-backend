@@ -1,5 +1,6 @@
 const userServices = require('../Services/user');
 const articleServices = require('../Services/article');
+const publicationServices = require('../Services/publication');
 
 const getUsers = async (req, res, next) => {
   /**
@@ -70,4 +71,22 @@ const patchArticle = async (req, res, next) => {
   }
 };
 
-module.exports = { getUsers, patchUser, patchArticle };
+const addPublication = async (req, res, next) => {
+  const { publicationEmail, publicationName, publicationLogo } = req.body;
+  if (!publicationEmail || !publicationName || !publicationLogo) {
+    return res.status(401).json({ message: 'Something is wrong' });
+  }
+  try {
+    const publication = await publicationServices.createAPublication(
+      publicationEmail,
+      publicationName,
+      publicationLogo,
+      'Approved'
+    );
+    res.status(200).json({ message: 'Publication Created' });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { getUsers, patchUser, patchArticle, addPublication };

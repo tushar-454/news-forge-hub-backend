@@ -35,7 +35,7 @@ const postUser = async (req, res, next) => {
       isPremium,
       premiumTill,
     });
-    res.status(201).json({ message: 'suceess' });
+    res.status(201).json({ message: 'create suceess' });
   } catch (error) {
     next(error);
   }
@@ -68,8 +68,20 @@ const patchUser = async (req, res, next) => {
   }
 };
 
+const deleteUser = async (req, res, next) => {
+  const email = req.params.email;
+  try {
+    const user = await userServices.findUserByProperty('email', email);
+    await User.deleteOne(user);
+    res.status(200).json({ message: 'Delete successfully' });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   getUsers,
   postUser,
   patchUser,
+  deleteUser,
 };

@@ -47,7 +47,7 @@ const patchUser = async (req, res, next) => {
   try {
     const user = await userServices.findUserByProperty('email', email);
     if (!user) {
-      throw error('User not found !', 400);
+      throw error('User not found !', 404);
     }
     let updateRole;
     if (!user.role.includes(role)) {

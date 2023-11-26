@@ -21,8 +21,10 @@ const createNewArtical = ({
   return aritcle.save();
 };
 
-const findArticle = () => {
-  return Article.find();
+const findArticles = (email) => {
+  let query = {};
+  if (email) query = { email };
+  return Article.find(query);
 };
 
 const findArticleByProperty = (key, value) => {
@@ -32,4 +34,4 @@ const findArticleByProperty = (key, value) => {
   return Article.findOne({ [key]: value });
 };
 
-module.exports = { createNewArtical, findArticle, findArticleByProperty };
+module.exports = { createNewArtical, findArticles, findArticleByProperty };

@@ -10,4 +10,19 @@ const createAPublication = (email, name, logo, isApprove) => {
   return publication.save();
 };
 
-module.exports = { createAPublication };
+const getPublicationByProperty = (key, value) => {
+  if (key === 'isApprove') {
+    return Publication.find({ isApprove: value });
+  }
+  return Publication.findOne({ [key]: value });
+};
+
+const getPublication = () => {
+  return Publication.find();
+};
+
+module.exports = {
+  createAPublication,
+  getPublicationByProperty,
+  getPublication,
+};

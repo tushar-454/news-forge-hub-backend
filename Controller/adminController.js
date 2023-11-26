@@ -77,7 +77,14 @@ const addPublication = async (req, res, next) => {
     return res.status(401).json({ message: 'Something is wrong' });
   }
   try {
-    const publication = await publicationServices.createAPublication(
+    const publication = await publicationServices.getPublicationByProperty(
+      'email',
+      publicationEmail
+    );
+    if (publication) {
+      new Error('By this Email One Publication exists.', 401);
+    }
+    const createPublication = await publicationServices.createAPublication(
       publicationEmail,
       publicationName,
       publicationLogo,
@@ -89,4 +96,27 @@ const addPublication = async (req, res, next) => {
   }
 };
 
-module.exports = { getUsers, patchUser, patchArticle, addPublication };
+const getPublication = async (req, res, next) => {
+  const { email } = req.query;
+  try {
+    if (email) {
+      const publication = await publicationServices.getPublicationByProperty(
+        'email',
+        email
+      );
+      return res.status(200).json(publication);
+    }
+    const publications = await publicationServices.getPublication();
+    return res.status(200).json(publications);
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = {
+  getUsers,
+  patchUser,
+  patchArticle,
+  addPublication,
+  getPublication,
+};

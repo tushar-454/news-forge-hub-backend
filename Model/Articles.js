@@ -26,14 +26,14 @@ const articleSchema = new Schema({
     require: true,
   },
   isApprove: {
-    type: Boolean,
+    type: String,
     require: true,
-    default: false,
+    default: 'Pending',
   },
   isPremium: {
-    type: Boolean,
+    type: String,
     require: true,
-    default: false,
+    default: 'Pending',
   },
 });
 

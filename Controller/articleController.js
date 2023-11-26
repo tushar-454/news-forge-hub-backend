@@ -43,7 +43,7 @@ const getArticleById = async (req, res, next) => {
 
 const putArticle = async (req, res, next) => {
   const id = req.params.id;
-  const { title, image, publisher, tags, description, email } = req.body;
+  const { title, image, publisher, tags, description } = req.body;
   try {
     const article = await articleService.findArticleByProperty('_id', id);
     if (!article) {

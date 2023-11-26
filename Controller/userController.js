@@ -1,3 +1,4 @@
+const User = require('../Model/User');
 const userServices = require('../Services/user');
 
 const getUsers = async (req, res, next) => {
@@ -40,7 +41,35 @@ const postUser = async (req, res, next) => {
   }
 };
 
+const patchUser = async (req, res, next) => {
+  const email = req.params.email;
+  const { role, isPremium, premiumTill } = req.body;
+  try {
+    const user = await userServices.findUserByProperty('email', email);
+    if (!user) {
+      throw error('User not found !', 400);
+    }
+    let updateRole;
+    if (!user.role.includes(role)) {
+      updateRole = [...user.role, role];
+    } else if (role === 'USER') {
+      updateRole = ['USER'];
+    } else if (role === 'ADMIN') {
+      updateRole = ['ADMIN'];
+    }
+    user.role = updateRole;
+    user.isPremium = isPremium ?? user.isPremium;
+    user.premiumTill =
+      premiumTill === null ? null : premiumTill ?? user.premiumTill;
+    await user.save();
+    return res.status(200).json(user);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   getUsers,
   postUser,
+  patchUser,
 };

@@ -1,4 +1,5 @@
 const error = require('../Error/error');
+const Article = require('../Model/Articles');
 const articleService = require('../Services/article');
 
 const postArticle = async (req, res, next) => {
@@ -20,11 +21,34 @@ const postArticle = async (req, res, next) => {
 };
 
 const getArticles = async (req, res, next) => {
-  const email = req.query.email;
+  const { email, publication, tags, title } = req.query;
   try {
     if (email) {
       const aritcles = await articleService.findArticles(email);
       return res.status(200).json(aritcles);
+    }
+    if (publication) {
+      const searchArticles = await articleService.searchArticleByKeyValue(
+        'publication',
+        publication
+      );
+      return res.status(200).json(searchArticles);
+    }
+    if (title) {
+      const searchArticles = await articleService.searchArticleByKeyValue(
+        'title',
+        title
+      );
+      return res.status(200).json(searchArticles);
+    }
+    if (tags) {
+      const searchArticles = await articleService.searchArticleByKeyValue(
+        'tags',
+        tags.split(','),
+        true
+      );
+      console.log(tags.split(','));
+      return res.status(200).json(searchArticles);
     }
     const aritcles = await articleService.findArticles();
     res.status(200).json(aritcles);

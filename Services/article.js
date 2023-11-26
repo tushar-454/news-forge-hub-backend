@@ -45,9 +45,21 @@ const deleteArticle = (key, value) => {
   return Article.deleteOne({ [key]: value });
 };
 
+const searchArticleByKeyValue = (key, value, isArray = false) => {
+  if (isArray) {
+    const query = { [key]: { $in: value } };
+    return Article.find(query);
+  }
+  const searchQuery = {
+    $or: [{ [key]: { $regex: value, $options: 'i' } }],
+  };
+  return Article.find(searchQuery);
+};
+
 module.exports = {
   createNewArtical,
   findArticles,
   findArticleByProperty,
   deleteArticle,
+  searchArticleByKeyValue,
 };

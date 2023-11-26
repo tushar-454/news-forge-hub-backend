@@ -5,5 +5,6 @@ router.get('/', articleController.getArticles);
 router.get('/:id', articleController.getArticleById);
 router.post('/add-article', articleController.postArticle);
 router.put('/:id', articleController.putArticle);
+router.delete('/', articleController.deleteArticle);
 
 module.exports = router;

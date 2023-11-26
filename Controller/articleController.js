@@ -61,4 +61,26 @@ const putArticle = async (req, res, next) => {
   }
 };
 
-module.exports = { postArticle, getArticles, getArticleById, putArticle };
+const deleteArticle = async (req, res, next) => {
+  const { id, email } = req.query;
+  try {
+    if (email) {
+      await articleService.deleteArticle('email', email);
+      return res
+        .status(200)
+        .json({ message: `Delete all article based on ${email}` });
+    }
+    await articleService.deleteArticle('_id', id);
+    res.status(200).json({ message: 'Successfully Deleted' });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = {
+  postArticle,
+  getArticles,
+  getArticleById,
+  putArticle,
+  deleteArticle,
+};

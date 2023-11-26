@@ -34,4 +34,19 @@ const findArticleByProperty = (key, value) => {
   return Article.findOne({ [key]: value });
 };
 
-module.exports = { createNewArtical, findArticles, findArticleByProperty };
+const deleteArticle = (key, value) => {
+  if (key === '_id') {
+    return Article.deleteOne({ _id: value });
+  }
+  if (key === 'email') {
+    return Article.deleteMany({ email: value });
+  }
+  return Article.deleteOne({ [key]: value });
+};
+
+module.exports = {
+  createNewArtical,
+  findArticles,
+  findArticleByProperty,
+  deleteArticle,
+};

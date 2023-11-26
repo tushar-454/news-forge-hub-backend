@@ -1,6 +1,7 @@
 const userServices = require('../Services/user');
 const articleServices = require('../Services/article');
 const publicationServices = require('../Services/publication');
+const error = require('../Error/error');
 
 const getUsers = async (req, res, next) => {
   /**
@@ -78,11 +79,11 @@ const addPublication = async (req, res, next) => {
   }
   try {
     const publication = await publicationServices.getPublicationByProperty(
-      'email',
+      'publicationEmail',
       publicationEmail
     );
     if (publication) {
-      new Error('By this Email One Publication exists.', 401);
+      throw error('By this Email One Publication exists.', 401);
     }
     const createPublication = await publicationServices.createAPublication(
       publicationEmail,
@@ -113,10 +114,37 @@ const getPublication = async (req, res, next) => {
   }
 };
 
+const updatePublication = async (req, res, next) => {
+  const id = req.params.id;
+  const { publicationEmail, publicationName, publicationLogo, isApprove } =
+    req.body;
+  try {
+    const publication = await publicationServices.getPublicationByProperty(
+      '_id',
+      id
+    );
+    if (!publication) {
+      throw error('No publication found', 404);
+    }
+    publication.publicationEmail =
+      publicationEmail ?? publication.publicationEmail;
+    publication.publicationLogo =
+      publicationLogo ?? publication.publicationLogo;
+    publication.publicationName =
+      publicationName ?? publication.publicationName;
+    publication.isApprove = isApprove ?? publication.isApprove;
+    const updatePublication = await publication.save();
+    res.status(200).json(updatePublication);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   getUsers,
   patchUser,
   patchArticle,
   addPublication,
   getPublication,
+  updatePublication,
 };

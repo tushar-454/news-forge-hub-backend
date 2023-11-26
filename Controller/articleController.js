@@ -1,3 +1,4 @@
+const error = require('../Error/error');
 const articleService = require('../Services/article');
 
 const postArticle = async (req, res, next) => {
@@ -47,7 +48,7 @@ const putArticle = async (req, res, next) => {
   try {
     const article = await articleService.findArticleByProperty('_id', id);
     if (!article) {
-      new Error('No Article Found', 404);
+      throw error('No Article Found', 404);
     }
     article.title = title ?? article.title;
     article.image = image ?? article.image;

@@ -6,5 +6,6 @@ router.patch('/users/:email', adminController.patchUser);
 router.patch('/articles/:id', adminController.patchArticle);
 router.post('/addPublication', adminController.addPublication);
 router.get('/getPublication', adminController.getPublication);
+router.patch('/updatePublication/:id', adminController.updatePublication);
 
 module.exports = router;

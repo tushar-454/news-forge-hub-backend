@@ -14,7 +14,7 @@ const verifyUser = async (req, res, next) => {
     if (!user) {
       return res.status(401).json({ message: 'Unauthorized' });
     }
-    req.decoded = decode;
+    req.user = decode;
     next();
   } catch (error) {
     next(error);

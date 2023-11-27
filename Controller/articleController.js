@@ -13,7 +13,6 @@ const postArticle = async (req, res, next) => {
       description,
       email,
     });
-    console.log(aritcla);
     res.status(201).json({ message: 'success' });
   } catch (error) {
     next(error);
@@ -21,10 +20,10 @@ const postArticle = async (req, res, next) => {
 };
 
 const getArticles = async (req, res, next) => {
-  const { email, publication, tags, title } = req.query;
+  const { email, publication, tags, title, sortWay, limit } = req.query;
   try {
     if (email) {
-      const aritcles = await articleService.findArticles(email);
+      const aritcles = await articleService.findArticles(email, sortWay, limit);
       return res.status(200).json(aritcles);
     }
     if (publication) {
@@ -47,10 +46,9 @@ const getArticles = async (req, res, next) => {
         tags.split(','),
         true
       );
-      console.log(tags.split(','));
       return res.status(200).json(searchArticles);
     }
-    const aritcles = await articleService.findArticles();
+    const aritcles = await articleService.findArticles(null, sortWay, limit);
     res.status(200).json(aritcles);
   } catch (error) {
     next(error);

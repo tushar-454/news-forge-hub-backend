@@ -62,10 +62,18 @@ const searchArticleByKeyValue = (key, value, isArray = false) => {
   return Article.find(searchQuery);
 };
 
+const getArticleWithSkipLimit = (skip, limit) => {
+  const requireArticle = Article.find()
+    .skip(parseInt(skip))
+    .limit(parseInt(limit));
+  return requireArticle;
+};
+
 module.exports = {
   createNewArtical,
   findArticles,
   findArticleByProperty,
   deleteArticle,
   searchArticleByKeyValue,
+  getArticleWithSkipLimit,
 };

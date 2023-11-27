@@ -2,6 +2,7 @@ const userServices = require('../Services/user');
 const articleServices = require('../Services/article');
 const publicationServices = require('../Services/publication');
 const error = require('../Error/error');
+const Article = require('../Model/Articles');
 
 const getUsers = async (req, res, next) => {
   /**
@@ -157,6 +158,21 @@ const deletePublication = async (req, res, next) => {
   }
 };
 
+const getArticles = async (req, res, next) => {
+  const { page, limit } = req.query;
+  try {
+    const range = parseInt(limit);
+    const skip = parseInt(page * range);
+    const requireArticle = await articleServices.getArticleWithSkipLimit(
+      skip,
+      range
+    );
+    res.status(200).json(requireArticle);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   getUsers,
   patchUser,
@@ -165,4 +181,5 @@ module.exports = {
   getPublication,
   updatePublication,
   deletePublication,
+  getArticles,
 };

@@ -22,13 +22,13 @@ const createNewArtical = ({
   return aritcle.save();
 };
 
-const findArticles = (email, isSort, limit) => {
+const findArticles = (email, sortWay, limit) => {
   let query = {};
   if (email) query = { email };
-  if (isSort === 'desc') {
+  if (sortWay === 'desc') {
     return Article.find(query).sort({ viewCount: -1 }).limit(limit);
   }
-  if (isSort === 'asc') {
+  if (sortWay === 'asc') {
     return Article.find(query).sort({ viewCount: 1 }).limit(limit);
   }
   return Article.find(query).limit(limit);

@@ -44,15 +44,8 @@ const patchUser = async (req, res, next) => {
     if (!user) {
       throw error('User not found !', 404);
     }
-    let updateRole;
-    if (!user.role.includes(role)) {
-      updateRole = [...user.role, role];
-    } else if (role === 'USER') {
-      updateRole = ['USER'];
-    } else if (role === 'ADMIN') {
-      updateRole = ['ADMIN'];
-    }
-    user.role = updateRole;
+
+    user.role = role ?? user.role;
     user.isPremium = isPremium ?? user.isPremium;
     user.premiumTill =
       premiumTill === null ? null : premiumTill ?? user.premiumTill;

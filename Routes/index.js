@@ -11,6 +11,7 @@ router.use('/api/v1/users', userRoutes);
 router.use('/api/v1/articles', verifyUser, articleRoutes);
 router.use('/api/v1/admin', adminRoutes);
 router.use('/api/v1/publications', publicationRoutes);
+// here I use admin verify middleware
 router.use('/api/v1/statistics', statisticRoutes);
 router.use('/api/v1/jwt', jwtRoutes);
 

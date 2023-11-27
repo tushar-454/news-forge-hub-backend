@@ -19,7 +19,7 @@ const createNewUser = ({ name, email, role, isPremium, premiumTill }) => {
   const user = new User({
     name,
     email,
-    role: role ? role : 'USER',
+    role,
     isPremium: false,
     premiumTill: premiumTill ? premiumTill : null,
   });

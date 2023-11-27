@@ -10,9 +10,9 @@ const userSchema = new Schema({
     require: true,
   },
   role: {
-    type: [String],
+    type: String,
     require: true,
-    default: ['USER'],
+    default: 'USER',
   },
   isPremium: {
     type: Boolean,

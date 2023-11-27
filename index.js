@@ -15,9 +15,9 @@ app.use(
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   })
 );
+app.use(cookieParser());
 app.use(express.json());
 app.use(routes);
-app.use(cookieParser());
 app.use(globalError);
 
 app.get('/health', (req, res) => {

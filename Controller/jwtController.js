@@ -8,10 +8,28 @@ const createToken = async (req, res, next) => {
       expiresIn: 60 * 5,
     });
     // TODO: next we are save token in cookie and call this api when user login or singup
-    res.status(200).json({ message: 'success', token });
+    res.cookie('token', token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'none',
+    });
+    res.send({ success: true });
   } catch (error) {
     next(error);
   }
 };
 
-module.exports = { createToken };
+const removeToken = async (req, res) => {
+  try {
+    res.clearCookie('token', {
+      maxAge: 0,
+      secure: true,
+      sameSite: 'none',
+    });
+    res.send({ success: true });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { createToken, removeToken };

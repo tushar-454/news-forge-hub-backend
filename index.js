@@ -5,9 +5,19 @@ const port = process.env.PORT || 4000;
 const routes = require('./Routes');
 const ConnectDB = require('./Database/db');
 const globalError = require('./Error/globalError');
+const cookieParser = require('cookie-parser');
+const cors = require('cors');
 
+app.use(
+  cors({
+    origin: 'http://localhost:5173',
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  })
+);
 app.use(express.json());
 app.use(routes);
+app.use(cookieParser());
 app.use(globalError);
 
 app.get('/health', (req, res) => {

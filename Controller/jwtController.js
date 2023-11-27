@@ -5,7 +5,7 @@ const createToken = async (req, res, next) => {
   const payload = { email, role, isPremium, premiumTill };
   try {
     const token = await jwt.sign(payload, process.env.TOKEN_SECRET, {
-      expiresIn: '1h',
+      expiresIn: 60 * 5,
     });
     // TODO: next we are save token in cookie and call this api when user login or singup
     res.status(200).json({ message: 'success', token });

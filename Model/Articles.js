@@ -40,6 +40,10 @@ const articleSchema = new Schema({
     require: true,
     default: 0,
   },
+  declinemsg: {
+    type: String,
+    require: true,
+  },
 });
 
 const Article = model('Article', articleSchema, 'articles');

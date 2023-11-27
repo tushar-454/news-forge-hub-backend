@@ -18,6 +18,7 @@ const createNewArtical = ({
     isApprove: 'Pending',
     isPremium: 'NONE',
     viewCount: 0,
+    declinemsg: '',
   });
   return aritcle.save();
 };

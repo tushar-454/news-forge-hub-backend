@@ -26,9 +26,15 @@ const createNewUser = ({ name, email, role, isPremium, premiumTill }) => {
   return user.save();
 };
 
+const getUserWithSkipLimit = (skip, limit) => {
+  const requireUsers = User.find().skip(parseInt(skip)).limit(parseInt(limit));
+  return requireUsers;
+};
+
 module.exports = {
   findUserByProperty,
   findUsers,
   createNewUser,
   findUsersByProperty,
+  getUserWithSkipLimit,
 };

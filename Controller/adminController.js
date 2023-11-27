@@ -5,9 +5,17 @@ const error = require('../Error/error');
 const Article = require('../Model/Articles');
 
 const getUsers = async (req, res, next) => {
+  const { page, limit } = req.query;
   /**
    * TODO: filter, sort, pagination, select
    */
+
+  if (page && limit) {
+    const skip = page * limit;
+    const requireUsers = await userServices.getUserWithSkipLimit(skip, limit);
+    return res.status(200).json(requireUsers);
+  }
+
   const { email, isPremium } = req.query;
   try {
     if (email) {
@@ -161,11 +169,10 @@ const deletePublication = async (req, res, next) => {
 const getArticles = async (req, res, next) => {
   const { page, limit } = req.query;
   try {
-    const range = parseInt(limit);
-    const skip = parseInt(page * range);
+    const skip = page * limit;
     const requireArticle = await articleServices.getArticleWithSkipLimit(
       skip,
-      range
+      limit
     );
     res.status(200).json(requireArticle);
   } catch (error) {

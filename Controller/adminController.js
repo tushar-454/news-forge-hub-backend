@@ -50,7 +50,7 @@ const patchUser = async (req, res, next) => {
     user.premiumTill =
       premiumTill === null ? null : premiumTill ?? user.premiumTill;
     await user.save();
-    return res.status(200).json(user);
+    return res.status(200).json({ message: 'update success' });
   } catch (error) {
     next(error);
   }
@@ -85,7 +85,9 @@ const addPublication = async (req, res, next) => {
       publicationEmail
     );
     if (publication) {
-      throw error('By this Email One Publication exists.', 401);
+      return res
+        .status(200)
+        .json({ error: 'By this Email One Publication exists.' });
     }
     const createPublication = await publicationServices.createAPublication(
       publicationEmail,
@@ -150,7 +152,7 @@ const deletePublication = async (req, res, next) => {
       id
     );
     if (!publication) {
-      throw error('Publication not found', 404);
+      return res.status(200).json({ error: 'Publication not found' });
     }
     await publicationServices.deletePublication(id);
     res.status(201).json({ message: 'Delete successfully' });

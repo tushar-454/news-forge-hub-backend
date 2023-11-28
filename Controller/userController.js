@@ -19,7 +19,7 @@ const getUsers = async (req, res, next) => {
 };
 
 const postUser = async (req, res, next) => {
-  const { name, email, role, isPremium, premiumTill } = req.body;
+  const { name, email, photo, role, isPremium, premiumTill } = req.body;
   try {
     const isExists = await userServices.findUserByProperty('email', email);
     if (isExists) {
@@ -28,6 +28,7 @@ const postUser = async (req, res, next) => {
     const user = await userServices.createNewUser({
       name,
       email,
+      photo,
       role,
       isPremium,
       premiumTill,

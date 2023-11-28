@@ -15,10 +15,18 @@ const findUsers = () => {
   return User.find();
 };
 
-const createNewUser = ({ name, email, role, isPremium, premiumTill }) => {
+const createNewUser = ({
+  name,
+  email,
+  photo,
+  role,
+  isPremium,
+  premiumTill,
+}) => {
   const user = new User({
     name,
     email,
+    photo,
     role,
     isPremium: false,
     premiumTill: premiumTill ? premiumTill : null,

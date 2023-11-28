@@ -7,6 +7,7 @@ const ConnectDB = require('./Database/db');
 const globalError = require('./Error/globalError');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
+const logger = require('./Middleware/logger');
 
 app.use(
   cors({
@@ -17,6 +18,7 @@ app.use(
 );
 app.use(cookieParser());
 app.use(express.json());
+app.use(logger);
 app.use(routes);
 app.use(globalError);
 

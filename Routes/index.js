@@ -5,10 +5,12 @@ const adminRoutes = require('./admin');
 const publicationRoutes = require('./publication');
 const statisticRoutes = require('./statistics');
 const jwtRoutes = require('./jwt');
+const verifyUser = require('../Middleware/verifyUser');
+const verifyAdmin = require('../Middleware/verifyAdmin');
 
 router.use('/api/v1/users', userRoutes);
 router.use('/api/v1/articles', articleRoutes);
-router.use('/api/v1/admin', adminRoutes);
+router.use('/api/v1/admin', verifyUser, verifyAdmin, adminRoutes);
 router.use('/api/v1/publications', publicationRoutes);
 // here I use admin verify middleware
 router.use('/api/v1/statistics', statisticRoutes);

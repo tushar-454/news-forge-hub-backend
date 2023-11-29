@@ -62,13 +62,13 @@ const patchArticle = async (req, res, next) => {
   try {
     const article = await articleServices.findArticleByProperty('_id', id);
     if (!article) {
-      throw error('Article not found !', 404);
+      return res.status(200).json({ error: 'No Article Found' });
     }
 
     article.isApprove = isApprove ?? article.isApprove;
     article.isPremium = isPremium ?? article.isPremium;
     await article.save();
-    return res.status(200).json(article);
+    res.status(200).json({ message: 'Update success' });
   } catch (error) {
     next(error);
   }
@@ -175,6 +175,16 @@ const getArticles = async (req, res, next) => {
   }
 };
 
+const deleteArticle = async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    await articleServices.deleteArticle('_id', id);
+    res.status(200).json({ message: 'Successfully Deleted' });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   getUsers,
   patchUser,
@@ -184,4 +194,5 @@ module.exports = {
   updatePublication,
   deletePublication,
   getArticles,
+  deleteArticle,
 };

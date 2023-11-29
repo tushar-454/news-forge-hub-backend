@@ -67,21 +67,23 @@ const getArticleById = async (req, res, next) => {
 
 const putArticle = async (req, res, next) => {
   const id = req.params.id;
-  const { title, image, publication, tags, description, isPremium } = req.body;
+  const { title, image, publication, tags, description, isApprove, isPremium } =
+    req.body;
   try {
     const article = await articleService.findArticleByProperty('_id', id);
     if (!article) {
-      throw error('No Article Found', 404);
+      return res.status(200).json({ error: 'No Article Found' });
     }
     article.title = title ?? article.title;
     article.image = image ?? article.image;
     article.publication = publication ?? article.publication;
     article.tags = tags ?? article.tags;
     article.description = description ?? article.description;
-    article.isPremium = isPremium === 'Pending' ? 'Pending' : article.isPremium;
+    article.isPremium = isPremium ?? article.isPremium;
+    article.isApprove = isApprove ?? article.isApprove;
     article.viewCount = article.viewCount + 1;
     await article.save();
-    res.status(200).json(article);
+    res.status(200).json({ message: 'Update success' });
   } catch (error) {
     next(error);
   }

@@ -9,5 +9,6 @@ router.post('/addPublication', adminController.addPublication);
 router.get('/getPublication', adminController.getPublication);
 router.patch('/updatePublication/:id', adminController.updatePublication);
 router.delete('/deletePublication/:id', adminController.deletePublication);
+router.delete('/deleteArticle/:id', adminController.deleteArticle);
 
 module.exports = router;

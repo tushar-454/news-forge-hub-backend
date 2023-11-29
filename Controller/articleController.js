@@ -3,7 +3,8 @@ const Article = require('../Model/Articles');
 const articleService = require('../Services/article');
 
 const postArticle = async (req, res, next) => {
-  const { title, image, publication, tags, description, email } = req.body;
+  const { title, image, publication, tags, description, email, name, photo } =
+    req.body;
   try {
     const aritcla = await articleService.createNewArtical({
       title,
@@ -12,6 +13,8 @@ const postArticle = async (req, res, next) => {
       tags,
       description,
       email,
+      name,
+      photo,
     });
     res.status(201).json({ message: 'success' });
   } catch (error) {

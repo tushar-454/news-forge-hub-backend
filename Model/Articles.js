@@ -25,6 +25,18 @@ const articleSchema = new Schema({
     type: String,
     require: true,
   },
+  name: {
+    type: String,
+    require: true,
+  },
+  photo: {
+    type: String,
+    require: true,
+  },
+  date: {
+    type: String,
+    require: true,
+  },
   isApprove: {
     type: String,
     require: true,

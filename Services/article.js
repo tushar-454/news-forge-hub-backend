@@ -7,6 +7,8 @@ const createNewArtical = ({
   tags,
   description,
   email,
+  name,
+  photo,
 }) => {
   const aritcle = new Article({
     title,
@@ -15,6 +17,9 @@ const createNewArtical = ({
     tags,
     description,
     email,
+    name,
+    photo,
+    date: new Date(),
     isApprove: 'Pending',
     isPremium: 'NONE',
     viewCount: 0,

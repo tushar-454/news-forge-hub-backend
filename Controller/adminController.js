@@ -58,7 +58,7 @@ const patchUser = async (req, res, next) => {
 
 const patchArticle = async (req, res, next) => {
   const id = req.params.id;
-  const { isApprove, isPremium } = req.body;
+  const { isApprove, isPremium, declinemsg } = req.body;
   try {
     const article = await articleServices.findArticleByProperty('_id', id);
     if (!article) {
@@ -67,6 +67,7 @@ const patchArticle = async (req, res, next) => {
 
     article.isApprove = isApprove ?? article.isApprove;
     article.isPremium = isPremium ?? article.isPremium;
+    article.declinemsg = declinemsg ?? article.declinemsg;
     await article.save();
     res.status(200).json({ message: 'Update success' });
   } catch (error) {

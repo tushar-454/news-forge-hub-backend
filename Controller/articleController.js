@@ -23,7 +23,16 @@ const postArticle = async (req, res, next) => {
 };
 
 const getArticles = async (req, res, next) => {
-  const { email, publication, tags, title, sortWay, limit } = req.query;
+  const {
+    email,
+    publication,
+    tags,
+    title,
+    sortWay,
+    limit,
+    isPremium,
+    isApprove,
+  } = req.query;
   try {
     if (email) {
       const aritcles = await articleService.findArticles(email, sortWay, limit);
@@ -48,6 +57,20 @@ const getArticles = async (req, res, next) => {
         'tags',
         tags.split(','),
         true
+      );
+      return res.status(200).json(searchArticles);
+    }
+    if (isPremium) {
+      const searchArticles = await articleService.searchArticleByKeyValue(
+        'isPremium',
+        isPremium
+      );
+      return res.status(200).json(searchArticles);
+    }
+    if (isApprove) {
+      const searchArticles = await articleService.searchArticleByKeyValue(
+        'isApprove',
+        isApprove
       );
       return res.status(200).json(searchArticles);
     }

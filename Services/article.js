@@ -63,7 +63,8 @@ const deleteArticle = (key, value) => {
 
 const searchArticleByKeyValue = (key, value, isArray = false) => {
   if (isArray) {
-    const query = { [key]: { $in: value } };
+    const smallerTagsArr = value.map((item) => new RegExp(item, 'i'));
+    const query = { [key]: { $in: smallerTagsArr } };
     return Article.find(query);
   }
   const searchQuery = {

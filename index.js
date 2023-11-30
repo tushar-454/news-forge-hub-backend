@@ -8,6 +8,7 @@ const globalError = require('./Error/globalError');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const logger = require('./Middleware/logger');
+const stripe = require('stripe')(process.env.STRIPE_SERECT_KEY);
 
 app.use(
   cors({

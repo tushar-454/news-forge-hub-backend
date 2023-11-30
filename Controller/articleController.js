@@ -33,6 +33,7 @@ const getArticles = async (req, res, next) => {
     isPremium,
     isApprove,
   } = req.query;
+  console.log(limit);
   try {
     if (email) {
       const aritcles = await articleService.findArticles(email, sortWay, limit);
@@ -68,11 +69,12 @@ const getArticles = async (req, res, next) => {
       return res.status(200).json(searchArticles);
     }
     if (isApprove) {
-      const searchArticles = await articleService.searchArticleByKeyValue(
-        'isApprove',
-        isApprove
-      );
-      return res.status(200).json(searchArticles);
+      // const searchArticles = await articleService.searchArticleByKeyValue(
+      //   'isApprove',
+      //   isApprove
+      // );
+      const aritcles = await articleService.findArticles(null, sortWay, limit);
+      return res.status(200).json(aritcles);
     }
     const aritcles = await articleService.findArticles(null, sortWay, limit);
     res.status(200).json(aritcles);

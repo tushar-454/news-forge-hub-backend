@@ -41,7 +41,9 @@ const findArticles = (email, sortWay, limit) => {
       .sort({ viewCount: 1 })
       .limit(limit);
   }
-  return Article.find(query).limit(limit);
+  return Article.find({ isApprove: 'Approved', ...query }).limit(
+    parseInt(limit)
+  );
 };
 
 const findArticleByProperty = (key, value) => {

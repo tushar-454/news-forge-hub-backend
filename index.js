@@ -12,7 +12,7 @@ const stripe = require('stripe')(process.env.STRIPE_SERECT_KEY);
 
 app.use(
   cors({
-    origin: 'http://localhost:5173',
+    origin: 'https://news-forge-hub.web.app',
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   })

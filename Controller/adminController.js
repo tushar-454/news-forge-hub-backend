@@ -44,7 +44,6 @@ const patchUser = async (req, res, next) => {
     if (!user) {
       throw error('User not found !', 404);
     }
-
     user.role = role ?? user.role;
     user.isPremium = isPremium ?? user.isPremium;
     user.premiumTill = parseInt(premiumTill) ?? user.premiumTill;

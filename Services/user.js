@@ -29,7 +29,7 @@ const createNewUser = ({
     photo,
     role,
     isPremium: false,
-    premiumTill: premiumTill ? premiumTill : null,
+    premiumTill: premiumTill ? premiumTill : 0,
   });
   return user.save();
 };

@@ -3,12 +3,12 @@ const User = require('../Model/User');
 const userServices = require('../Services/user');
 
 const getUsers = async (req, res, next) => {
-  const { email: tokenEmail } = req.user;
+  // const { email: tokenEmail } = req.user;
   const { email } = req.query;
   try {
-    if (tokenEmail !== email) {
-      throw error('Forbidden access', 403);
-    }
+    // if (tokenEmail !== email) {
+    //   throw error('Forbidden access', 403);
+    // }
     if (email) {
       const user = await userServices.findUserByProperty('email', email);
       return res.status(200).json(user);
@@ -54,8 +54,28 @@ const deleteUser = async (req, res, next) => {
   }
 };
 
+const patchUser = async (req, res, next) => {
+  const { email } = req.query;
+  const { role, isPremium, premiumTill } = req.body;
+  try {
+    const user = await userServices.findUserByProperty('email', email);
+    if (!user) {
+      throw error('User not found !', 404);
+    }
+
+    user.role = role ?? user.role;
+    user.isPremium = isPremium ?? user.isPremium;
+    user.premiumTill = parseInt(premiumTill) ?? user.premiumTill;
+    await user.save();
+    return res.status(200).json({ message: 'update success' });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   getUsers,
   postUser,
   deleteUser,
+  patchUser,
 };

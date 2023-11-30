@@ -24,7 +24,7 @@ const userSchema = new Schema({
     default: false,
   },
   premiumTill: {
-    type: String,
+    type: Number,
     require: true,
   },
 });

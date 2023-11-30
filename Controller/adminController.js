@@ -47,8 +47,7 @@ const patchUser = async (req, res, next) => {
 
     user.role = role ?? user.role;
     user.isPremium = isPremium ?? user.isPremium;
-    user.premiumTill =
-      premiumTill === null ? null : premiumTill ?? user.premiumTill;
+    user.premiumTill = parseInt(premiumTill) ?? user.premiumTill;
     await user.save();
     return res.status(200).json({ message: 'update success' });
   } catch (error) {

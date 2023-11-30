@@ -93,8 +93,16 @@ const getArticleById = async (req, res, next) => {
 
 const putArticle = async (req, res, next) => {
   const id = req.params.id;
-  const { title, image, publication, tags, description, isApprove, isPremium } =
-    req.body;
+  const {
+    title,
+    image,
+    publication,
+    tags,
+    description,
+    isApprove,
+    isPremium,
+    declinemsg,
+  } = req.body;
   try {
     const article = await articleService.findArticleByProperty('_id', id);
     if (!article) {
@@ -107,6 +115,7 @@ const putArticle = async (req, res, next) => {
     article.description = description ?? article.description;
     article.isPremium = isPremium ?? article.isPremium;
     article.isApprove = isApprove ?? article.isApprove;
+    article.declinemsg = declinemsg ?? article.declinemsg;
     article.viewCount = article.viewCount + 1;
     await article.save();
     res.status(200).json({ message: 'Update success' });

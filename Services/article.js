@@ -32,10 +32,14 @@ const findArticles = (email, sortWay, limit) => {
   let query = {};
   if (email) query = { email };
   if (sortWay === 'desc') {
-    return Article.find(query).sort({ viewCount: -1 }).limit(limit);
+    return Article.find({ isApprove: 'Approved', ...query })
+      .sort({ viewCount: -1 })
+      .limit(limit);
   }
   if (sortWay === 'asc') {
-    return Article.find(query).sort({ viewCount: 1 }).limit(limit);
+    return Article.find({ isApprove: 'Approved', ...query })
+      .sort({ viewCount: 1 })
+      .limit(limit);
   }
   return Article.find(query).limit(limit);
 };
